@@ -1,0 +1,41 @@
+# RealChat - Hệ thống Chat Đa nền tảng (FastAPI + MongoDB + Vue.js 3)
+# Python 3.8+
+
+# ============ BACKEND ============
+
+# FastAPI Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+python-dotenv==1.0.0
+
+# Database - MongoDB
+pymongo==4.6.0
+motor==3.3.2  # Async MongoDB driver
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+bcrypt==4.1.1
+python-multipart==0.0.6
+cryptography==41.0.7
+
+# Data Validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+email-validator==2.1.0
+
+# CORS Support
+fastapi-cors==0.0.6
+
+# ============ TESTING ============
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+
+# ============ DEVELOPMENT ============
+black==23.12.1
+flake8==7.0.0
+mypy==1.7.1
+
+# ============ NOTE ============
+# Frontend: Vue.js 3 + Ant Design Vue (installed via npm, not pip)
+# See frontend/ directory for npm dependencies
