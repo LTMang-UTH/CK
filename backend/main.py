@@ -50,6 +50,13 @@ app = FastAPI(
 
 # ============ MIDDLEWARE ============
 
+# Import security middleware
+from middleware import RateLimitMiddleware, SecurityHeadersMiddleware
+
+# Security middleware (add first)
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimitMiddleware)
+
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,

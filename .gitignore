@@ -1,7 +1,25 @@
+# Python
 .venv/
 __pycache__/
-.env
 *.pyc
+
+# Environment variables - IMPORTANT: Never commit!
+.env
+.env.local
+.env.*.local
+backend/.env
+
+# Node.js
 node_modules/
 dist/
 build/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store

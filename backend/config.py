@@ -8,12 +8,12 @@ from typing import Optional
 class Settings(BaseSettings):
     """Cài đặt ứng dụng"""
     
-    # MongoDB Atlas
-    MONGODB_URL: str = "mongodb+srv://congtubotzp205_db_user:g1tLaFTI8wk9MyIC@ltm.upqpjei.mongodb.net/?appName=LTM"
+    # MongoDB Atlas - Load from environment variables
+    MONGODB_URL: str
     DATABASE_NAME: str = "realchat_db"
     
-    # JWT
-    SECRET_KEY: str = "your-secret-key-change-in-production-realchat-2024"
+    # JWT - Load from environment variables
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
