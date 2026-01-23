@@ -1,329 +1,457 @@
-# 🎮 Game Tic-Tac-Toe (Caro 3x3) - Multiplayer Online
+# 🎨 FunDraw - Game Vẽ và Đoán Từ Multiplayer
 
-Game Cờ Caro 3x3 online đa người chơi được xây dựng với kiến trúc Client-Server sử dụng WebSocket để giao tiếp real-time.
+FunDraw là một game vẽ và đoán từ (Pictionary-style) cho nhiều người chơi, được xây dựng với React và Express.js. Người chơi lần lượt vẽ một từ và những người khác sẽ đoán từ đó trong thời gian giới hạn.
 
-## 📋 Mục lục
+## 📋 Mục Lục
 
-- [Tính năng](#-tính-năng)
-- [Yêu cầu hệ thống](#-yêu-cầu-hệ-thống)
-- [Cài đặt](#-cài-đặt)
-- [Hướng dẫn sử dụng](#-hướng-dẫn-sử-dụng)
-- [Cấu trúc dự án](#-cấu-trúc-dự-án)
-- [Công nghệ sử dụng](#-công-nghệ-sử-dụng)
-- [Giao thức WebSocket](#-giao-thức-websocket)
-- [Lưu ý](#-lưu-ý)
+- [Tính Năng](#-tính-năng)
+- [Công Nghệ Sử Dụng](#-công-nghệ-sử-dụng)
+- [Yêu Cầu Hệ Thống](#-yêu-cầu-hệ-thống)
+- [Cài Đặt](#-cài-đặt)
+- [Cấu Hình](#-cấu-hình)
+- [Chạy Dự Án](#-chạy-dự-án)
+- [Cấu Trúc Dự Án](#-cấu-trúc-dự-án)
+- [API Documentation](#-api-documentation)
+- [Quy Tắc Chơi](#-quy-tắc-chơi)
 - [Troubleshooting](#-troubleshooting)
 
-## ✨ Tính năng
+## ✨ Tính Năng
 
-### 🎯 Tính năng chính
+### Xác Thực Người Dùng
+- ✅ Đăng ký tài khoản mới
+- ✅ Đăng nhập/Đăng xuất
+- ✅ Quên mật khẩu (gửi OTP qua email)
+- ✅ Đổi mật khẩu
+- ✅ Quản lý profile người dùng
 
-- **Đăng ký/Đăng nhập**: Hệ thống quản lý tài khoản người dùng
-- **Chơi game online**: Chơi Cờ Caro 3x3 với người chơi khác qua mạng
-- **Thách đấu**: Gửi lời thách đấu đến người chơi online khác
-- **Tự động ghép cặp**: Hệ thống tự động ghép cặp với người chơi đang chờ
-- **Lịch sử đấu**: Xem lịch sử các ván đấu đã chơi
-- **Bảng xếp hạng**: Xem bảng xếp hạng người chơi theo số trận thắng
-- **Danh sách người chơi online**: Xem danh sách người chơi đang online và trạng thái của họ
-- **Real-time communication**: Giao tiếp real-time sử dụng WebSocket
-- **Đếm ngược thời gian**: Mỗi lượt có 30 giây để đánh
-- **Hiệu ứng âm thanh**: Phát nhạc khi bắt đầu ván đấu mới
+### Game Multiplayer
+- ✅ Tạo phòng game và tham gia phòng
+- ✅ Hỗ trợ tối đa 8 người chơi
+- ✅ Vẽ real-time trên canvas với Fabric.js
+- ✅ Chat real-time giữa các người chơi
+- ✅ Hệ thống tính điểm tự động
+- ✅ Bảng xếp hạng (Leaderboard)
+- ✅ Gợi ý từ (hints) tự động
+- ✅ Khôi phục canvas khi reload trang
 
-### 🎮 Luật chơi
+### Tính Năng Đặc Biệt
+- ✅ WebSocket real-time communication
+- ✅ Tab isolation - mỗi tab hoạt động độc lập
+- ✅ Chat riêng cho người đã đoán đúng
+- ✅ Tự động chọn từ nếu không chọn trong thời gian quy định
+- ✅ Giảm thời gian khi có người đoán đúng
 
-- Bàn cờ 3x3
-- Người chơi X đi trước, người chơi O đi sau
-- Thắng khi có 3 quân liên tiếp (ngang, dọc, hoặc chéo)
-- Hòa khi bàn cờ đầy và không có người thắng
-- Mỗi lượt có 30 giây để đánh
+## 🛠 Công Nghệ Sử Dụng
 
-## 💻 Yêu cầu hệ thống
+### Frontend (Client)
+- **React 18** - UI Framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool và dev server
+- **Fabric.js** - Canvas drawing library
+- **Socket.IO Client** - Real-time communication
+- **Zustand** - State management
+- **React Router** - Routing
+- **Axios** - HTTP client
 
-- **Node.js**: Phiên bản 14.x trở lên
-- **npm**: Đi kèm với Node.js
-- **Trình duyệt**: Chrome, Firefox, Edge, Safari (phiên bản mới nhất)
-- **Hệ điều hành**: Windows, macOS, hoặc Linux
+### Backend (Server)
+- **Express.js** - Web framework
+- **TypeScript** - Type safety
+- **Socket.IO** - WebSocket server
+- **Prisma** - ORM cho database
+- **MySQL** - Database (hỗ trợ XAMPP)
+- **Redis** - Caching và session management
+- **JWT** - Authentication tokens
+- **bcrypt** - Password hashing
+- **Nodemailer** - Email service
 
-## 🚀 Cài đặt
+## 📦 Yêu Cầu Hệ Thống
 
-### Bước 1: Clone repository
+- **Node.js** >= 18
+- **MySQL** (XAMPP hoặc MySQL Server) - Port 3306
+- **Redis** - Port 6379
+- **npm** hoặc **yarn**
+
+## 🚀 Cài Đặt
+
+### 1. Clone repository
 
 ```bash
 git clone <repository-url>
-cd GK
+cd CK
 ```
 
-### Bước 2: Cài đặt dependencies
+### 2. Cài đặt dependencies cho Client
 
 ```bash
+cd client
 npm install
 ```
 
-Lệnh này sẽ cài đặt các package cần thiết:
-- `ws`: Thư viện WebSocket cho Node.js
-
-## 📖 Hướng dẫn sử dụng
-
-### Chạy ứng dụng
-
-Ứng dụng cần chạy **2 server** đồng thời:
-
-#### 1. Chạy WebSocket Server (Terminal 1)
+### 3. Cài đặt dependencies cho Server
 
 ```bash
+cd ../server
+npm install
+```
+
+### 4. Tạo Database
+
+Mở MySQL (XAMPP hoặc MySQL Server) và tạo database:
+
+```sql
+CREATE DATABASE fundraw_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 5. Chạy Prisma Migrations
+
+```bash
+cd server
+npm run prisma:generate
+npm run prisma:migrate
+```
+
+Hoặc chạy SQL trực tiếp trong MySQL (xem file `server/prisma/migrations/init/migration.sql`)
+
+## ⚙️ Cấu Hình
+
+### Server Configuration
+
+Tạo file `.env` trong thư mục `server/`:
+
+```env
+# Database
+DATABASE_URL="mysql://root:@localhost:3306/fundraw_db?schema=public"
+
+# Redis
+REDIS_URL="redis://localhost:6379"
+
+# JWT Secrets (thay đổi trong production)
+ACCESS_TOKEN_SECRET="your-secret-key-here"
+REFRESH_TOKEN_SECRET="your-refresh-secret-key-here"
+
+# Email (cho password reset) - Tùy chọn
+MAIL_HOST="smtp.gmail.com"
+MAIL_USER="your-email@gmail.com"
+MAIL_PASS="your-app-password"
+MAIL_SENDAS="your-email@gmail.com"
+
+# Server Port
+PORT=3000
+```
+
+**Lưu ý:**
+- Nếu MySQL có password, cập nhật `DATABASE_URL`: `mysql://root:password@localhost:3306/...`
+- Gmail cần tạo App Password (không dùng mật khẩu thường)
+
+### Client Configuration
+
+Tạo file `.env` trong thư mục `client/`:
+
+```env
+VITE_API_HOST=http://localhost:3000
+VITE_WS_HOST=http://localhost:3000
+```
+
+**Lưu ý:**
+- `VITE_WS_HOST` phải dùng `http://` hoặc `https://` (không dùng `ws://` hay `wss://`)
+- Socket.IO client tự động chuyển đổi protocol
+
+## 🎮 Chạy Dự Án
+
+### Development Mode
+
+#### 1. Chạy Server
+
+```bash
+cd server
+npm run dev
+```
+
+Server sẽ chạy tại `http://localhost:3000`
+
+#### 2. Chạy Client (terminal mới)
+
+```bash
+cd client
+npm run dev
+```
+
+Client sẽ chạy tại `http://localhost:5173`
+
+### Production Mode
+
+#### Build và chạy Server
+
+```bash
+cd server
+npm run build
 npm start
 ```
 
-Hoặc:
+#### Build và chạy Client
 
 ```bash
-node server/serverMain.js
+cd client
+npm run build
+npm run preview
 ```
 
-Server sẽ chạy trên port **12345** (WebSocket) và hiển thị:
-```
-Server started on port 12345...
-```
-
-#### 2. Chạy HTTP Server (Terminal 2)
-
-Mở một terminal/cửa sổ mới và chạy:
-
-```bash
-npm run http
-```
-
-Hoặc:
-
-```bash
-node server/httpServer.js
-```
-
-Server sẽ chạy trên port **8000** (HTTP) và hiển thị:
-```
-HTTP Server running at http://localhost:8000/
-Serving files from: <path-to-client>
-```
-
-#### 3. Truy cập ứng dụng
-
-- Mở trình duyệt và truy cập: `http://localhost:8000`
-- **Lưu ý**: Đảm bảo cả 2 server đều đang chạy trước khi truy cập
-
-### Sử dụng ứng dụng
-
-1. **Đăng ký tài khoản mới**:
-   - Click nút "Đăng ký" trên trang đăng nhập
-   - Nhập tên đăng nhập và mật khẩu (tối thiểu 3 ký tự)
-   - Xác nhận mật khẩu và click "Đăng ký"
-
-2. **Đăng nhập**:
-   - Nhập tên đăng nhập và mật khẩu
-   - Click "Đăng nhập" hoặc nhấn Enter
-
-3. **Chơi game**:
-   - **Thách đấu**: Chọn người chơi từ danh sách online và click để thách đấu
-   - **Tự động ghép cặp**: Click nút "Tự động ghép cặp" để hệ thống tự động tìm đối thủ
-   - **Đánh cờ**: Click vào ô trống trên bàn cờ khi đến lượt bạn
-   - **Chơi lại**: Click nút "Chơi lại" để bắt đầu ván mới
-   - **Ngừng chơi**: Click nút "Ngừng chơi" để thoát khỏi ván đấu
-
-4. **Xem lịch sử và xếp hạng**:
-   - Click "Lịch sử đấu" để xem các ván đấu đã chơi
-   - Click "Bảng xếp hạng" để xem bảng xếp hạng người chơi
-
-## 📁 Cấu trúc dự án
+## 📁 Cấu Trúc Dự Án
 
 ```
-GK/
-├── server/                 # Server-side code
-│   ├── data/              # Thư mục lưu trữ dữ liệu
-│   │   └── accounts.txt   # File lưu thông tin tài khoản (tự động tạo)
-│   ├── accountManager.js  # Quản lý tài khoản (đăng ký, đăng nhập)
-│   ├── gameRoom.js        # Logic phòng game (xử lý game logic)
-│   ├── httpServer.js      # HTTP server (phục vụ file tĩnh)
-│   ├── matchHistory.js    # Lịch sử đấu (lưu và truy xuất lịch sử)
-│   └── serverMain.js      # Server chính (WebSocket server)
+CK/
+├── client/                 # Frontend React Application
+│   ├── src/
+│   │   ├── components/     # UI Components
+│   │   │   ├── CanvasDraw.tsx
+│   │   │   ├── Leaderboard.tsx
+│   │   │   ├── PlayerCard.tsx
+│   │   │   └── WordButton.tsx
+│   │   ├── pages/          # Page Components
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   ├── MainMenu.tsx
+│   │   │   ├── HostRoom.tsx
+│   │   │   ├── WaitingRoom.tsx
+│   │   │   └── GameRoom.tsx
+│   │   ├── services/       # API & WebSocket Services
+│   │   │   ├── apiClient.ts
+│   │   │   ├── authService.ts
+│   │   │   ├── websocketService.ts
+│   │   │   └── storage.ts
+│   │   ├── store/          # Zustand State Management
+│   │   │   ├── authStore.ts
+│   │   │   └── gameStore.ts
+│   │   ├── types/          # TypeScript Types
+│   │   ├── config/         # Configuration
+│   │   └── utils/          # Utility Functions
+│   ├── package.json
+│   └── vite.config.ts
 │
-├── client/                 # Client-side code
-│   ├── pages/             # Các trang HTML
-│   │   ├── login.html     # Trang đăng nhập
-│   │   ├── register.html  # Trang đăng ký
-│   │   ├── game.html      # Trang chơi game
-│   │   ├── history.html   # Trang lịch sử đấu
-│   │   └── ranking.html   # Trang bảng xếp hạng
-│   ├── js/                # JavaScript files
-│   │   ├── utils.js       # Các hàm tiện ích (WebSocket, session, ...)
-│   │   ├── login.js       # Logic đăng nhập
-│   │   ├── register.js    # Logic đăng ký
-│   │   ├── game.js         # Logic game chính
-│   │   ├── history.js      # Logic lịch sử đấu
-│   │   └── ranking.js      # Logic bảng xếp hạng
-│   ├── css/               # Stylesheets
-│   │   ├── main.css       # CSS chung
-│   │   ├── game.css       # CSS cho trang game
-│   │   └── tables.css     # CSS cho bảng (history, ranking)
-│   ├── mp3/               # Audio files
-│   │   └── snaptik.vn_hs4CR.mp3  # Nhạc khi bắt đầu ván đấu
-│   └── index.html         # Trang chủ (redirect đến login)
+├── server/                 # Backend Express.js API
+│   ├── src/
+│   │   ├── config/         # Environment Config
+│   │   ├── services/       # Business Logic Services
+│   │   │   ├── prisma.service.ts
+│   │   │   ├── redis.service.ts
+│   │   │   ├── jwt.service.ts
+│   │   │   ├── auth.service.ts
+│   │   │   └── users.service.ts
+│   │   ├── routes/         # API Routes
+│   │   │   ├── auth.routes.ts
+│   │   │   └── users.routes.ts
+│   │   ├── middleware/     # Express Middleware
+│   │   │   └── auth.middleware.ts
+│   │   ├── socket/         # Socket.IO Handlers
+│   │   │   ├── game.gateway.ts
+│   │   │   ├── game.service.ts
+│   │   │   ├── turn.service.ts
+│   │   │   └── game.payload.ts
+│   │   └── server.ts       # Main Server File
+│   ├── prisma/
+│   │   ├── schema.prisma   # Database Schema
+│   │   └── migrations/     # Database Migrations
+│   └── package.json
 │
-├── node_modules/          # Dependencies (tự động tạo sau npm install)
-│
-├── package.json           # File cấu hình npm
-├── package-lock.json     # File khóa phiên bản dependencies
-├── .gitignore            # Git ignore rules
-└── README.md             # File này
+├── client/GAME_RULES.md    # Quy tắc chơi (Client)
+├── server/GAME_RULES.md    # Quy tắc chơi (Server)
+└── README.md               # File này
 ```
 
-## 🛠 Công nghệ sử dụng
+## 📡 API Documentation
 
-### Backend
-- **Node.js**: Runtime environment
-- **WebSocket (ws)**: Giao tiếp real-time giữa client và server
-- **HTTP Server**: Phục vụ file tĩnh (HTML, CSS, JS)
+### Authentication Endpoints
 
-### Frontend
-- **HTML5**: Cấu trúc trang web
-- **CSS3**: Styling và animation
-- **Vanilla JavaScript**: Logic phía client
-- **WebSocket API**: Kết nối real-time với server
+#### `POST /auth/login`
+Đăng nhập người dùng
 
-### Kiến trúc
-- **Client-Server Architecture**: Tách biệt client và server
-- **WebSocket Protocol**: Giao tiếp hai chiều real-time
-- **Session Management**: Quản lý phiên đăng nhập bằng sessionStorage
+**Request Body:**
+```json
+{
+  "username": "string",
+  "password": "string"
+}
+```
 
-## 📡 Giao thức WebSocket
+**Response:**
+```json
+{
+  "statusCode": 200,
+  "message": "Login successful",
+  "data": {
+    "user": { ... },
+    "accessToken": "string"
+  }
+}
+```
 
-### Client → Server
+#### `POST /auth/register`
+Đăng ký tài khoản mới
 
-| Lệnh | Mô tả | Ví dụ |
-|------|-------|-------|
-| `LOGIN:username:password` | Đăng nhập | `LOGIN:player1:pass123` |
-| `REGISTER:username:password` | Đăng ký | `REGISTER:newuser:pass123` |
-| `CHALLENGE:username` | Thách đấu người chơi | `CHALLENGE:player2` |
-| `ACCEPT_CHALLENGE` | Chấp nhận thách đấu | `ACCEPT_CHALLENGE` |
-| `DECLINE_CHALLENGE` | Từ chối thách đấu | `DECLINE_CHALLENGE` |
-| `AUTO_MATCH` | Tự động ghép cặp | `AUTO_MATCH` |
-| `MOVE:row,col` | Đánh cờ | `MOVE:1,2` |
-| `RESET` | Chơi lại | `RESET` |
-| `LEAVE_GAME` | Thoát khỏi ván đấu | `LEAVE_GAME` |
-| `HISTORY:username` | Lấy lịch sử đấu | `HISTORY:player1` |
-| `RANKING` | Lấy bảng xếp hạng | `RANKING` |
-| `GET_ONLINE_PLAYERS` | Lấy danh sách người chơi online | `GET_ONLINE_PLAYERS` |
+**Request Body:**
+```json
+{
+  "username": "string",
+  "password": "string",
+  "confirm_password": "string",
+  "email": "string"
+}
+```
 
-### Server → Client
+#### `POST /auth/logout`
+Đăng xuất (cần authentication)
 
-| Lệnh | Mô tả |
-|------|-------|
-| `LOGIN_OK` | Đăng nhập thành công |
-| `LOGIN_FAIL:message` | Đăng nhập thất bại |
-| `REGISTER_OK` | Đăng ký thành công |
-| `REGISTER_FAIL:message` | Đăng ký thất bại |
-| `CHALLENGE_REQUEST:username` | Nhận lời thách đấu |
-| `CHALLENGE_SENT:username` | Đã gửi thách đấu |
-| `CHALLENGE_ACCEPTED` | Thách đấu được chấp nhận |
-| `CHALLENGE_DECLINED:username` | Thách đấu bị từ chối |
-| `CHALLENGE_TIMEOUT:username` | Thách đấu hết hạn (15 giây) |
-| `AUTO_MATCH_QUEUED` | Đã vào hàng chờ ghép cặp |
-| `YourMove` | Đến lượt bạn đánh |
-| `ValidMove row,col` | Nước đi hợp lệ |
-| `OpponentMove row,col` | Đối thủ đã đánh |
-| `Win:winner:loser` | Bạn thắng |
-| `Lose:winner:loser` | Bạn thua |
-| `Draw` | Hòa |
-| `GAME_LEFT` | Đã thoát khỏi ván đấu |
-| `ONLINE_PLAYERS:list` | Danh sách người chơi online |
-| `END_HISTORY` | Kết thúc danh sách lịch sử |
-| `END_RANKING` | Kết thúc bảng xếp hạng |
+**Headers:**
+```
+Authorization: Bearer <accessToken>
+```
 
-## 📝 Lưu ý
+### User Endpoints
 
-### Dữ liệu
-- Thư mục `server/data/` sẽ được tạo tự động khi chạy server
-- File `accounts.txt` sẽ được tạo tự động khi có người dùng đăng ký
-- Dữ liệu được lưu dưới dạng text file đơn giản
+#### `GET /users/profile`
+Lấy thông tin profile (cần authentication)
 
-### Bảo mật
-- Mật khẩu được lưu dưới dạng plain text (không mã hóa)
-- **Không nên sử dụng mật khẩu thật** cho mục đích phát triển/test
-- Để sử dụng trong production, cần thêm mã hóa mật khẩu
+#### `POST /users/change-password`
+Đổi mật khẩu (cần authentication)
 
-### Ports
-- **WebSocket Server**: Port 12345
-- **HTTP Server**: Port 8000
-- Đảm bảo các port này không bị chiếm bởi ứng dụng khác
+#### `POST /users/reset-password`
+Gửi email reset password (không cần authentication)
 
-### Session
-- Session được lưu trong `sessionStorage` của trình duyệt
-- Session sẽ mất khi đóng tab/trình duyệt
-- Cần đăng nhập lại sau khi đóng trình duyệt
+#### `POST /users/reset-otp`
+Reset password với OTP (không cần authentication)
+
+### Health Check
+
+#### `GET /health`
+Kiểm tra server status
+
+## 🎯 WebSocket Events
+
+### Namespace: `/game`
+
+### Client → Server Events
+
+- `createRoom` - Tạo phòng mới
+- `joinRoom` - Tham gia phòng `{ roomId }`
+- `startGame` - Bắt đầu game
+- `chooseWord` - Chọn từ `{ roomId, word }`
+- `drawEvent` - Gửi drawing data
+- `chatMessage` - Gửi tin nhắn `{ roomId, message }`
+- `playerList` - Lấy danh sách player
+- `roomInfo` - Lấy thông tin phòng
+
+### Server → Client Events
+
+- `ping` - Ping từ server
+- `roomCreated` - Phòng đã được tạo
+- `joinRoom` - Đã tham gia phòng
+- `startGame` - Game đã bắt đầu
+- `chooseWord` - Chọn từ
+- `gameProgress` - Tiến trình game
+- `drawEvent` - Drawing data từ player khác
+- `chatMessage` - Tin nhắn chat
+- `chatGuessed` - Tin nhắn khi đoán đúng
+- `playerList` - Danh sách players
+- `roomInfo` - Thông tin phòng
+- `roomClosed` - Phòng đã đóng
+- `error` - Lỗi
+
+Xem chi tiết trong `server/README.md`
+
+## 📖 Quy Tắc Chơi
+
+Xem file [GAME_RULES.md](./client/GAME_RULES.md) hoặc [server/GAME_RULES.md](./server/GAME_RULES.md) để biết chi tiết về:
+
+- Quy tắc chơi
+- Cách tính điểm
+- Vai trò người chơi (Drawer/Guesser)
+- Tính năng đặc biệt
+- Mẹo chơi
+
+### Tóm Tắt Nhanh
+
+1. **Thiết lập**: Tạo/Tham gia phòng → Chọn từ → Vẽ và Đoán
+2. **Vẽ**: Người vẽ có 120 giây để vẽ từ đã chọn
+3. **Đoán**: Người khác đoán từ qua chat
+4. **Điểm**: Điểm = số giây còn lại (người đoán) hoặc số giây còn lại / 2 (người vẽ)
+5. **Thắng**: Người có tổng điểm cao nhất sau tất cả rounds
 
 ## 🔧 Troubleshooting
 
-### Lỗi "Không kết nối được đến server"
+### Lỗi kết nối Database
 
-**Nguyên nhân**: WebSocket server chưa chạy hoặc port bị chiếm
+- ✅ Kiểm tra MySQL đã chạy chưa (XAMPP Control Panel)
+- ✅ Kiểm tra `DATABASE_URL` trong `.env` đúng chưa
+- ✅ Kiểm tra database `fundraw_db` đã được tạo chưa
+- ✅ Kiểm tra user/password MySQL có đúng không
 
-**Giải pháp**:
-1. Kiểm tra WebSocket server đã chạy chưa (Terminal 1)
-2. Kiểm tra port 12345 có bị chiếm không:
-   ```bash
-   # Windows
-   netstat -ano | findstr :12345
-   
-   # Linux/Mac
-   lsof -i :12345
-   ```
-3. Đổi port trong `server/serverMain.js` nếu cần
+### Lỗi kết nối Redis
 
-### Lỗi 404 khi truy cập trang
+- ✅ Kiểm tra Redis đã chạy chưa
+- ✅ Kiểm tra `REDIS_URL` trong `.env` đúng chưa
+- ✅ Windows: Có thể dùng Redis for Windows hoặc WSL
+- ⚠️ **Lưu ý**: Redis là optional, hệ thống sẽ fallback về database nếu Redis không khả dụng
 
-**Nguyên nhân**: HTTP server chưa chạy hoặc đường dẫn sai
+### Lỗi Prisma
 
-**Giải pháp**:
-1. Kiểm tra HTTP server đã chạy chưa (Terminal 2)
-2. Đảm bảo truy cập đúng URL: `http://localhost:8000`
-3. Kiểm tra port 8000 có bị chiếm không
+```bash
+cd server
+npm run prisma:generate
+npm run prisma:migrate
+```
 
-### Không thể đăng ký tài khoản
+### Lỗi Socket.IO
 
-**Nguyên nhân**: Tên đăng nhập đã tồn tại hoặc mật khẩu quá ngắn
+- ✅ Kiểm tra token có hợp lệ không
+- ✅ Kiểm tra namespace `/game` có đúng không
+- ✅ Kiểm tra CORS settings trong server
 
-**Giải pháp**:
-1. Thử tên đăng nhập khác
-2. Đảm bảo mật khẩu có ít nhất 3 ký tự
-3. Kiểm tra mật khẩu xác nhận khớp với mật khẩu
+### Lỗi Build Client
 
-### Không thấy người chơi online
+```bash
+cd client
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+```
 
-**Nguyên nhân**: Chưa có người chơi nào online hoặc kết nối WebSocket bị lỗi
+### Lỗi Email Service
 
-**Giải pháp**:
-1. Mở nhiều tab/trình duyệt và đăng nhập với các tài khoản khác nhau
-2. Kiểm tra kết nối WebSocket trong Developer Tools (F12)
-3. Refresh trang để tải lại danh sách
+- ✅ Gmail: Cần tạo App Password (không dùng mật khẩu thường)
+- ✅ Kiểm tra `MAIL_HOST`, `MAIL_USER`, `MAIL_PASS` trong `.env`
+- ⚠️ Email service là optional, có thể bỏ qua nếu không cần reset password
 
-### Game không phản hồi
+## 📝 Lưu Ý Quan Trọng
 
-**Nguyên nhân**: Kết nối WebSocket bị ngắt hoặc server bị lỗi
+1. **MySQL XAMPP**: 
+   - Mặc định: user `root`, không có password, port `3306`
+   - Nếu có password, cập nhật trong `.env`
 
-**Giải pháp**:
-1. Kiểm tra console trong Developer Tools (F12) để xem lỗi
-2. Refresh trang và đăng nhập lại
-3. Kiểm tra server logs để xem lỗi
-4. Khởi động lại cả 2 server
+2. **Redis**: 
+   - Token được lưu trong Redis với TTL 15 phút
+   - Nếu Redis không khả dụng, hệ thống sẽ fallback về database
+
+3. **Token Management**:
+   - Access token hết hạn sau 3 ngày (JWT)
+   - Redis TTL là 15 phút
+   - Khi logout, token bị xóa khỏi Redis
+
+4. **Tab Isolation**:
+   - Mỗi tab trình duyệt hoạt động độc lập
+   - Có thể mở nhiều tab với các tài khoản khác nhau
+
+5. **Canvas Recovery**:
+   - Canvas được lưu trên server
+   - Tự động khôi phục khi reload trang
+
+## 👥 Tác Giả
+
+**Group 8 - Lap Trinh Mang**
 
 ## 📄 License
 
-ISC
-
-## 👥 Tác giả
-
-**Group 8 - Lập Trình Mạng**
-
-Dự án được phát triển cho mục đích học tập và nghiên cứu.
+UNLICENSED
 
 ---
 
-**Lưu ý**: Đây là phiên bản phát triển. Để sử dụng trong môi trường production, cần thêm các tính năng bảo mật như mã hóa mật khẩu, HTTPS, và xác thực token.
+**Chúc bạn chơi vui vẻ! 🎨🎮**
