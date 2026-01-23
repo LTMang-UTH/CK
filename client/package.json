@@ -2,6 +2,7 @@
   "name": "fundraw-react",
   "version": "1.0.0",
   "description": "FunDraw - Multiplayer drawing and guessing game (React)",
+  "author": "Group 8 - Lap Trinh Mang",
   "private": true,
   "scripts": {
     "dev": "vite",
