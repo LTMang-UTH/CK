@@ -1,0 +1,111 @@
+.notification {
+  position: fixed;
+  top: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  min-width: 320px;
+  max-width: 520px;
+  animation: slideDown 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), fadeOut 0.3s ease-out 2.7s forwards;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  background: var(--bg-primary);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notification-error .notification-content {
+  background: var(--danger-gradient);
+  color: white;
+  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.3);
+}
+
+.notification-success .notification-content {
+  background: var(--success-gradient);
+  color: white;
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+}
+
+.notification-info .notification-content {
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.3);
+}
+
+.notification-warning .notification-content {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(255, 152, 0, 0.3);
+}
+
+.notification-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.notification-message {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+}
+
+.notification-close {
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  color: white;
+  font-size: 20px;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+  padding: 0;
+  line-height: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+.notification-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1) rotate(90deg);
+}
+
+.notification-close:active {
+  transform: scale(0.95) rotate(90deg);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+}
+
